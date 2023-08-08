@@ -1,0 +1,23 @@
+.notFoundWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.title {
+  line-height: 1.5;
+  font-size: 2rem;
+}
+
+@media (min-width: 840px) {
+  .title {
+    font-size: 3.2rem;
+  }
+}
+
+.notFoundWrapper img {
+  width: 50%;
+  height: auto;
+}
