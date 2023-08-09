@@ -6,6 +6,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -21,6 +22,7 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
 export const db = getFirestore(firebaseApp);
+export const storage = getStorage(firebaseApp);
 
 export const logInWithEmailAndPassword = async (
   email: string,
@@ -55,6 +57,7 @@ export const registerWithEmailAndPassword = async (
       uid: user.uid,
       name: name,
       email: user.email,
+      images: [],
     });
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

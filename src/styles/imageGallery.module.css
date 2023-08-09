@@ -1,0 +1,33 @@
+.title {
+  line-height: 1.5;
+  font-size: 2rem;
+  text-align: center;
+}
+
+@media (min-width: 840px) {
+  .title {
+    font-size: 3.2rem;
+  }
+}
+
+.imagesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.galleryWrapper img {
+  width: 100%;
+  height: auto;
+}
+
+@media (min-width: 840px) {
+  .imagesContainer {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .galleryWrapper img {
+    width: 25%;
+    height: auto;
+  }
+}

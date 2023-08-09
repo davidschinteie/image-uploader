@@ -4,3 +4,8 @@ export interface UserType {
   email: string;
   authToken?: string;
 }
+
+export type UserImageType = {
+  imageUrl: string;
+  imageTags: string[];
+};
