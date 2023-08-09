@@ -108,6 +108,14 @@ button {
   font-size: inherit;
 }
 
+.authContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
 form {
   display: flex;
   align-items: center;

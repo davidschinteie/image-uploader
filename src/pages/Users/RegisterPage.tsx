@@ -1,20 +1,20 @@
 import Layout from "../../components/Layout";
 import AuthForm from "../../components/AuthForm";
 
-const SignInPage = () => {
+const RegisterPage = () => {
   return (
     <Layout>
       <div className="authContainer">
         <AuthForm
-          mode="signin"
-          title="Sign in to your account"
-          buttonText="Login"
-          linkUrl="/register"
-          linkText="Register"
+          mode="register"
+          title="Create a new account"
+          buttonText="Register"
+          linkUrl="/sign-in"
+          linkText="Sign in"
         />
       </div>
     </Layout>
   );
 };
 
-export default SignInPage;
+export default RegisterPage;
