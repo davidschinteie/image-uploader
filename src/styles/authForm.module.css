@@ -41,6 +41,14 @@
   color: #f7f0ff;
 }
 
+.ctaLink[disabled] {
+  background-color: #cccccc;
+  color: #666666;
+  border-color: #cccccc;
+  outline: none;
+  cursor: not-allowed;
+}
+
 .inlineSvg {
   width: 1rem;
   height: 1rem;

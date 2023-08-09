@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -19,6 +20,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
+export const db = getFirestore(firebaseApp);
 
 export const logInWithEmailAndPassword = async (
   email: string,
@@ -48,12 +50,13 @@ export const registerWithEmailAndPassword = async (
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     user = res.user;
-    // set(ref(db, `users/${user.uid}`), {
-    //   uid: user.uid,
-    //   name: name,
-    //   email: user.email,
-    //   authProvider: "local",
-    // });
+
+    await setDoc(doc(db, "users", user.uid), {
+      uid: user.uid,
+      name: name,
+      email: user.email,
+    });
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     console.error(err);

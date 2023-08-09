@@ -30,6 +30,7 @@ const AuthForm = ({
   linkText,
 }: AuthFormProps) => {
   const [formState, setFormState] = useState(initialFormState);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
 
@@ -37,26 +38,29 @@ const AuthForm = ({
     event.preventDefault();
 
     try {
+      let user = null;
+      setIsSubmitting(true);
       if (mode === "signin") {
-        const user = await logInWithEmailAndPassword(
+        user = await logInWithEmailAndPassword(
           formState.email,
           formState.password
         );
-        if (user !== null) {
-          login({
-            userId: user.uid ?? "",
-            name: user.displayName ?? "",
-            email: user.email ?? "",
-          });
-          navigate("/");
-        }
       } else {
-        await registerWithEmailAndPassword(
+        user = await registerWithEmailAndPassword(
           formState.name,
           formState.email,
           formState.password
         );
       }
+      if (user !== null) {
+        login({
+          userId: user.uid ?? "",
+          name: user.displayName ?? "",
+          email: user.email ?? "",
+        });
+        navigate("/");
+      }
+      setIsSubmitting(false);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error(error);
@@ -104,7 +108,12 @@ const AuthForm = ({
           />
         </>
       )}
-      <button type="submit" className={styles.ctaLink} onClick={() => {}}>
+      <button
+        type="submit"
+        className={styles.ctaLink}
+        onClick={() => {}}
+        disabled={isSubmitting}
+      >
         {buttonText}
       </button>
       <Link to={linkUrl} className={styles.iconLink}>
