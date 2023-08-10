@@ -1,15 +1,14 @@
 import React from "react";
-import { IoCloseSharp } from "react-icons/io5";
 import { BiErrorCircle } from "react-icons/bi";
-import { FiInfo } from "react-icons/fi";
 import { BsCheck2Circle } from "react-icons/bs";
+import { IoCloseSharp } from "react-icons/io5";
 import styles from "../styles/snackBar.module.css";
 
 interface SnackbarProps {
   text: React.ReactNode;
   handleClose: () => void;
   open: boolean;
-  variant?: "success" | "error" | "info";
+  variant?: "success" | "error";
 }
 
 const Snackbar = ({
@@ -21,7 +20,6 @@ const Snackbar = ({
   const variantIcon = {
     success: <BsCheck2Circle />,
     error: <BiErrorCircle />,
-    info: <FiInfo />,
   };
 
   const Icon = variantIcon[variant];
@@ -38,7 +36,7 @@ const Snackbar = ({
         {Icon}
       </span>
       <span className={styles.innerText}>{text}</span>
-      <button type="button" onClick={handleClose}>
+      <button type="button" className={styles.closeBtn} onClick={handleClose}>
         <IoCloseSharp className={styles.closeIcon} />
       </button>
     </div>

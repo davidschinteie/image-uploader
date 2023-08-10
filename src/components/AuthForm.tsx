@@ -108,7 +108,7 @@ const AuthForm = ({
           />
         </>
       )}
-      <button type="submit" className={styles.ctaLink} disabled={isSubmitting}>
+      <button type="submit" className="ctaLink" disabled={isSubmitting}>
         {buttonText}
       </button>
       <Link to={linkUrl} className={styles.iconLink}>

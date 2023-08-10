@@ -22,7 +22,10 @@
   font-weight: bold;
 }
 
-.snackbar button {
+.closeBtn {
+  padding: 0.5rem;
+  background-color: transparent;
+  cursor: pointer;
   margin-left: auto;
 }
 
@@ -34,11 +37,6 @@
 .error {
   composes: snackbar;
   background-color: rgb(239 68 68);
-}
-
-.info {
-  composes: snackbar;
-  background-color: rgb(29 78 216);
 }
 
 .iconWrapper {

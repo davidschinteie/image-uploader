@@ -1,11 +1,14 @@
 import { ChangeEvent, useState } from "react";
+import Chips from "./Chips";
 
 interface ImageUploadProps {
-  handleUpload: (image: File) => void;
+  handleUpload: (image: File, tags: string[]) => void;
+  isUploading: boolean;
 }
 
-const ImageUpload = ({ handleUpload }: ImageUploadProps) => {
+const ImageUpload = ({ handleUpload, isUploading }: ImageUploadProps) => {
   const [image, setImage] = useState<File>();
+  const [imageTags, setImageTags] = useState<string[]>([]);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -13,15 +16,24 @@ const ImageUpload = ({ handleUpload }: ImageUploadProps) => {
     }
   };
 
+  const handleAddTag = (tag: string) => {
+    if (imageTags.find((tagEl) => tagEl === tag)) {
+      return;
+    }
+    setImageTags((prevState) => [...prevState, tag]);
+  };
+
+  const handleDeleteTag = (tag: string) => {
+    setImageTags((prevState) => prevState.filter((tagEl) => tagEl !== tag));
+  };
+
   const handleUploadClick = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!image) {
       return;
     }
-    handleUpload(image);
+    handleUpload(image, imageTags);
   };
-
-  // TODO: add images tags on upload a new image
 
   return (
     <form onSubmit={handleUploadClick}>
@@ -29,7 +41,20 @@ const ImageUpload = ({ handleUpload }: ImageUploadProps) => {
 
       <div>{image && `${image.name} - ${image.type}`}</div>
 
-      <button type="submit">Upload</button>
+      <Chips
+        chips={imageTags}
+        handleAddTag={handleAddTag}
+        handleDeleteTag={handleDeleteTag}
+        placeholder="Add a tag..."
+      />
+
+      <button
+        type="submit"
+        className="ctaLink"
+        disabled={!image || isUploading}
+      >
+        Upload
+      </button>
     </form>
   );
 };

@@ -1,0 +1,50 @@
+.chipsWrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0;
+  width: 100%;
+}
+
+.chipsWrapper.isEditable {
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.chipsElements {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.chip {
+  background-color: #460a91;
+  color: #fff;
+  border-radius: 1rem;
+  padding: 0.5rem 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.chipValue {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.chipBtn {
+  padding: 0;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.editBtn {
+  padding: 0.5rem;
+  background-color: transparent;
+  cursor: pointer;
+  margin-left: auto;
+}

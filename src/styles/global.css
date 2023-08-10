@@ -146,3 +146,32 @@ input {
   width: 100%;
   font-size: 1rem;
 }
+
+.ctaLink {
+  font-weight: 500;
+  font-size: 0.8rem;
+  line-height: 0.75;
+  display: inline-flex;
+  align-items: center;
+  color: #f7f0ff;
+  text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2);
+  background-color: #882cff;
+  box-shadow: 0px 1px 0px rgba(136, 44, 255, 0.4);
+  border-radius: 0.4rem;
+  padding: 0.8rem 2rem;
+}
+
+.ctaLink:hover {
+  transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+  background-color: #e752ff;
+  box-shadow: 0px 1px 0px rgba(231, 82, 255, 0.4);
+  color: #f7f0ff;
+}
+
+.ctaLink[disabled] {
+  background-color: #cccccc;
+  color: #666666;
+  border-color: #cccccc;
+  outline: none;
+  cursor: not-allowed;
+}
