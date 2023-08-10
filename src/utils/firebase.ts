@@ -1,11 +1,13 @@
 import { initializeApp } from "firebase/app";
 import {
+  GoogleAuthProvider,
   createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
 } from "firebase/auth";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
@@ -23,6 +25,9 @@ const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
 export const db = getFirestore(firebaseApp);
 export const storage = getStorage(firebaseApp);
+
+// Google Auth function
+const googleProvider = new GoogleAuthProvider();
 
 export const logInWithEmailAndPassword = async (
   email: string,
@@ -70,4 +75,34 @@ export const registerWithEmailAndPassword = async (
 
 export const logoutFirebase = () => {
   signOut(auth);
+};
+
+export const signInWithGoogle = async () => {
+  let user = null;
+
+  try {
+    const res = await signInWithPopup(auth, googleProvider);
+    user = res.user;
+    try {
+      const docRef = doc(db, "users", user.uid);
+      const docSnap = await getDoc(docRef);
+      if (!docSnap.exists()) {
+        console.log("add new user to db");
+        // add new user to database if does not exist
+        await setDoc(doc(db, "users", user.uid), {
+          uid: user.uid,
+          name: name,
+          email: user.email,
+          images: [],
+        });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (err: any) {
+    alert(err.message);
+  }
+
+  return user;
 };

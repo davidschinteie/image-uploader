@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { FaUserPlus } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import styles from "../styles/authForm.module.css";
 import {
   logInWithEmailAndPassword,
   registerWithEmailAndPassword,
+  signInWithGoogle,
 } from "../utils/firebase";
 
 interface AuthFormProps {
@@ -68,6 +70,18 @@ const AuthForm = ({
     }
   };
 
+  const handleSignInWithGoogle = async () => {
+    const user = await signInWithGoogle();
+    if (user !== null) {
+      login({
+        userId: user.uid ?? "",
+        name: user.displayName ?? "",
+        email: user.email ?? "",
+      });
+      navigate("/");
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit} className={styles.formContainer}>
       <h1 className={styles.authTitle}>{title}</h1>
@@ -111,6 +125,17 @@ const AuthForm = ({
       <button type="submit" className="ctaLink" disabled={isSubmitting}>
         {buttonText}
       </button>
+      <button
+        onClick={(event) => {
+          event.preventDefault();
+          handleSignInWithGoogle();
+        }}
+        className={styles.googleBtn}
+      >
+        <FcGoogle />
+        <span>Sign In with Google</span>
+      </button>
+
       <Link to={linkUrl} className={styles.iconLink}>
         <FaUserPlus className={styles.inlineSvg} />
         {linkText}
