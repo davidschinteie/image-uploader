@@ -10,22 +10,16 @@ import { useContext, useEffect, useState } from "react";
 import ImageGallery from "../components/ImageGallery";
 import ImageUpload from "../components/ImageUpload";
 import Navigation from "../components/Navigation";
-import { AuthContext } from "../context/AuthContext";
-import { ProgressType, UserImageType } from "../types";
-import { db, storage } from "../utils/firebase";
 import Snackbar from "../components/SnackBar";
+import { AuthContext } from "../context/AuthContext";
+import { UserImageType } from "../types";
+import { db, storage } from "../utils/firebase";
 
 interface snackBarOptionsProps {
   isOpen: boolean;
   message: string;
   variant: "success" | "error";
 }
-
-const INITIAL_PROGRESS_VALUE: ProgressType = {
-  isVisible: true,
-  startValue: 0,
-  endValue: 75,
-};
 
 const Home = () => {
   const { user } = useContext(AuthContext);
@@ -37,9 +31,6 @@ const Home = () => {
     message: "",
     variant: "error",
   });
-  const [progressStats, setProgressStats] = useState<ProgressType>(
-    INITIAL_PROGRESS_VALUE
-  );
 
   const fetchImages = async () => {
     if (!user) {
@@ -64,13 +55,6 @@ const Home = () => {
     uploadTask.on(
       "state_changed",
       (snapshot) => {
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        setProgressStats((prevState) => ({
-          isVisible: true,
-          startValue: prevState.endValue,
-          endValue: Math.floor(progress),
-        }));
         switch (snapshot.state) {
           case "paused":
             console.log("Upload is paused");
@@ -95,11 +79,6 @@ const Home = () => {
             ...prevState,
             { imageUrl: downloadURL, imageTags: tags },
           ]);
-          setProgressStats({
-            isVisible: false,
-            startValue: 0,
-            endValue: 0,
-          });
           setIsUploadingImage(false);
           setSnackBarOptions({
             isOpen: true,
@@ -186,7 +165,6 @@ const Home = () => {
         <ImageUpload
           handleUpload={handleUpload}
           isUploading={isUploadingImage}
-          progress={progressStats}
         />
         <ImageGallery
           images={userImages}

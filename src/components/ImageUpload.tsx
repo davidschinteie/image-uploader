@@ -1,7 +1,6 @@
 import { ChangeEvent, useRef, useState } from "react";
 import styles from "../styles/imageUpload.module.css";
 import { ProgressType } from "../types";
-import AnimatedProgress from "./AnimatedProgress";
 import Chips from "./Chips";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 
@@ -11,11 +10,7 @@ interface ImageUploadProps {
   progress?: ProgressType;
 }
 
-const ImageUpload = ({
-  handleUpload,
-  isUploading,
-  progress,
-}: ImageUploadProps) => {
+const ImageUpload = ({ handleUpload, isUploading }: ImageUploadProps) => {
   const imageInputRef = useRef<HTMLInputElement | null>(null);
   const [image, setImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState("");
