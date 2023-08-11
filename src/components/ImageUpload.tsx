@@ -3,6 +3,7 @@ import styles from "../styles/imageUpload.module.css";
 import { ProgressType } from "../types";
 import Chips from "./Chips";
 import { AiOutlineCloudUpload } from "react-icons/ai";
+import AnimatedProgress from "./AnimatedProgress";
 
 interface ImageUploadProps {
   handleUpload: (image: File, tags: string[]) => void;
@@ -10,7 +11,11 @@ interface ImageUploadProps {
   progress?: ProgressType;
 }
 
-const ImageUpload = ({ handleUpload, isUploading }: ImageUploadProps) => {
+const ImageUpload = ({
+  handleUpload,
+  isUploading,
+  progress,
+}: ImageUploadProps) => {
   const imageInputRef = useRef<HTMLInputElement | null>(null);
   const [image, setImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState("");
@@ -78,14 +83,14 @@ const ImageUpload = ({ handleUpload, isUploading }: ImageUploadProps) => {
       >
         Upload
       </button>
-      {/* TODO: update image upload progress info */}
-      {/* {progress?.isVisible && (
+      {/* TODO: fix update image upload progress info */}
+      {progress?.isVisible && (
         <AnimatedProgress
           startNumber={progress.startValue}
           endNumber={progress.endValue}
           duration={0.7}
         />
-      )} */}
+      )}
     </form>
   );
 };
