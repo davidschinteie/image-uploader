@@ -9,3 +9,9 @@ export type UserImageType = {
   imageUrl: string;
   imageTags: string[];
 };
+
+export type ProgressType = {
+  isVisible: boolean;
+  startValue: number;
+  endValue: number;
+};

@@ -1,0 +1,35 @@
+.imageUploadForm {
+  max-width: 100%;
+}
+
+.imagePreview {
+  width: 20rem;
+  height: 10rem;
+  object-fit: cover;
+  max-width: 100%;
+}
+
+.imageUploadLabel {
+  margin-top: 2rem;
+  width: 20rem;
+  height: 10rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  max-width: 100%;
+  text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2);
+  border: 2px dashed rgba(231, 82, 255, 0.4);
+  border-radius: 2rem;
+  cursor: pointer;
+}
+
+.imageUploadLabel svg {
+  width: 2rem;
+  height: 2rem;
+  fill: #882cff;
+}
+
+.imageUploadInput {
+  display: none;
+}
